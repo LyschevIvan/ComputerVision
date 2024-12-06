@@ -99,6 +99,12 @@ def process_image_template_pairs(image_template_pairs):
     """
     Функция для тестирования обоих методов
     """
+    # Загружаем изображения
+    # image = cv2.imread(image_path)
+    # template = cv2.imread(template_path)
+
+    # if image is None or template is None:
+    #     raise ValueError("Не удалось загрузить изображения")
 
     matcher = ImageMatcher()
     results = []
@@ -148,6 +154,41 @@ def process_image_template_pairs(image_template_pairs):
         plt.tight_layout()
         plt.show()
 
+        # print("image:", os.path.basename(image_path), ' temp match:', temp_score, ' sift:', sift_score)
+
+    # plt.tight_layout()
+    # plt.show()
+
+    # # Применяем template matching
+    # template_matches, template_score = matcher.template_matching(image, template)
+    # template_result = matcher.draw_matches(image, template_matches, "template")
+
+    # # Применяем SIFT
+    # sift_matches, sift_score = matcher.sift_matching(image, template)
+    # sift_result = matcher.draw_matches(image, sift_matches, "sift")
+
+    # # Отображаем результаты
+    # plt.figure(figsize=(15, 5))
+
+    # plt.subplot(131)
+    # plt.imshow(cv2.cvtColor(template, cv2.COLOR_BGR2RGB))
+    # plt.title('Шаблон')
+    # plt.axis('off')
+
+    # plt.subplot(132)
+    # plt.imshow(cv2.cvtColor(template_result, cv2.COLOR_BGR2RGB))
+    # plt.title(f'Template Matching\nScore: {template_score:.2f}')
+    # plt.axis('off')
+
+    # plt.subplot(133)
+    # plt.imshow(cv2.cvtColor(sift_result, cv2.COLOR_BGR2RGB))
+    # plt.title(f'SIFT Matching\nScore: {sift_score:.2f}')
+    # plt.axis('off')
+
+    # plt.tight_layout()
+    # plt.show()
+
+    # return template_score, sift_score
 
 
 if __name__ == "__main__":
@@ -159,9 +200,14 @@ if __name__ == "__main__":
         ("image1.jpg", "template1.jpg"),
         ("image2.jpg", "template2.png"),
         ("image3.jpeg", "template3.png"),
+        ("image3.jpeg", "template31.png"),
         ("image4.jpg", "template4.png"),
+        ("image4.jpg", "template41.png"),
         ("image9.jpg", "template4.png"),
+        ("image9.jpg", "template41.png"),
         ("image5.jpg", "template5.png"),
+        ("image5.jpg", "template51.png"),
+        ("image51.jpg", "template51.png"),
         ("image6.jpeg", "template6.png"),
         ("image7.webp", "template7.png"),
         ("image10.jpg", "template10.png"),
@@ -170,5 +216,8 @@ if __name__ == "__main__":
 
     try:
         process_image_template_pairs(image_template_pairs)
+        # print(f"\nРезультаты:")
+        # print(f"Template Matching score: {template_score:.4f}")
+        # print(f"SIFT Matching score: {sift_score:.4f}")
     except Exception as e:
         print(f"Ошибка при обработке изображений: {str(e)}")
