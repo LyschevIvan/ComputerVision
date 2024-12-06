@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-
+import pandas as pd
 
 class ImageMatcher:
     def __init__(self):
@@ -120,6 +120,12 @@ def process_image_template_pairs(image_template_pairs):
         sift_matches, sift_score = matcher.sift_matching(image, template)
         sift_result = matcher.draw_matches(image, sift_matches, "sift")
 
+        results.append({
+            'Image': image_path,
+            'Template': template_path,
+            'Template Matching Score': template_score,
+            'SIFT Matching Score': sift_score
+        })
         # Create a new figure for each image-template pair
         fig, axes = plt.subplots(1, 4, figsize=(20, 5))
         fig.suptitle(f"Image-Template Pair {idx + 1}", fontsize=16)
@@ -144,10 +150,13 @@ def process_image_template_pairs(image_template_pairs):
         axes[3].set_title(f"SIFT Matching\nScore: {sift_score:.2f}")
         axes[3].axis("off")
 
+        plt.savefig(f'results/result_{idx + 1}.png')
         # Show the plot
         plt.tight_layout()
         plt.show()
-
+    results_df = pd.DataFrame(results)
+    print("\nРезультаты:")
+    print(results_df)
 
 
 if __name__ == "__main__":
